@@ -15,7 +15,7 @@
           OES Giphy
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>v{{ version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -104,10 +104,12 @@ export default defineComponent({
 
   setup() {
     const leftDrawerOpen = ref(false);
+    const version = process.env.APP_VERSION;
 
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
+      version,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },
