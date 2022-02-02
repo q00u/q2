@@ -1,6 +1,6 @@
 {
   "name": "q2",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Giphy Frontend written in Quasar for OES",
   "productName": "OESGiphy",
   "author": "Phoenix Gabriel <github@korv.us>",
@@ -15,6 +15,7 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "dotenv": "^15.0.0",
     "quasar": "^2.0.0",
     "vue": "^3.0.0",
     "vue-i18n": "^9.0.0",
