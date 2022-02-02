@@ -59,7 +59,7 @@ module.exports = configure((ctx) => ({
       ...require('dotenv').config().parsed,
       APP_VERSION: require('./package.json').version,
     },
-    vueRouterMode: 'hash', // available values: 'hash', 'history'
+    vueRouterMode: 'history', // available values: 'hash', 'history'
 
     // transpile: false,
     // publicPath: '/',
