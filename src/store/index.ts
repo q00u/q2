@@ -1,54 +1,55 @@
 import { store } from 'quasar/wrappers';
-import { InjectionKey } from 'vue';
 import {
   createStore,
-  Store as VuexStore,
-  useStore as vuexUseStore,
-} from 'vuex';
-
-// import example from './module-example'
-// import { ExampleStateInterface } from './module-example/state';
-
-/*
- * If not building with SSR mode, you can
- * directly export the Store instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Store instance.
- */
+  Module,
+  createComposable,
+  Getters,
+  Mutations,
+} from 'vuex-smart-module';
 
 export interface StateInterface {
   // Define your own store structure, using submodules if needed
-  // example: ExampleStateInterface;
-  // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
-  example: unknown
+  searchString: string
 }
 
-// provide typings for `this.$store`
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $store: VuexStore<StateInterface>
+class RootState {
+  searchString = '';
+}
+
+class RootGetters extends Getters<RootState> {
+  get searchString() {
+    return this.state.searchString;
   }
 }
 
-// provide typings for `useStore` helper
-export const storeKey: InjectionKey<VuexStore<StateInterface>> = Symbol('vuex-key');
+class RootMutations extends Mutations<RootState> {
+  setSearch(newSearch: string) {
+    this.state.searchString = newSearch;
+  }
+}
+
+// This is the config of the root module
+// You can define a root state/getters/mutations/actions here
+// Or do everything in separate modules
+const rootConfig = {
+  state: RootState,
+  getters: RootGetters,
+  mutations: RootMutations,
+  modules: {
+    //
+  },
+};
+
+export const root = new Module(rootConfig);
 
 export default store((/* { ssrContext } */) => {
-  const Store = createStore<StateInterface>({
-    modules: {
-      // example
-    },
-
-    // enable strict mode (adds overhead!)
-    // for dev mode and --debug builds only
+  const rootStore = createStore(root, {
     strict: !!process.env.DEBUGGING,
+    // plugins: []
+    // and other options, normally passed to Vuex `createStore`
   });
 
-  return Store;
+  return rootStore;
 });
 
-export function useStore() {
-  return vuexUseStore(storeKey);
-}
+export const useStore = createComposable(root);

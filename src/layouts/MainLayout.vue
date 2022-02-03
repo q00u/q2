@@ -11,9 +11,45 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
+        <q-avatar class="gt-xs">
+          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
+        </q-avatar>
+
+        <!-- <q-toolbar-title>
           OES Giphy
-        </q-toolbar-title>
+        </q-toolbar-title> -->
+
+        <q-space />
+
+        <q-input
+          v-model="searchText"
+          type="search"
+          class="q-ml-md"
+          label="Search"
+          maxlength="50"
+          dark
+          dense
+          standout
+          style="width: 80%"
+        >
+          <template v-slot:append>
+            <q-icon v-if="searchText === ''" name="search" />
+            <q-icon v-else name="clear" class="cursor-pointer" @click="searchText = ''" />
+          </template>
+          <template v-slot:after>
+            <q-icon
+              v-if="searchText !== ''"
+              @click="runSearch"
+              class="cursor-pointer"
+              name="search"
+            />
+            <span class="text-caption">
+              {{ searchText.length }}/50
+            </span>
+          </template>
+        </q-input>
+
+        <q-space />
 
         <div>v{{ version }}</div>
       </q-toolbar>
@@ -49,6 +85,12 @@
 import EssentialLink from 'components/EssentialLink.vue';
 
 const linksList = [
+  {
+    title: 'OldIndex',
+    caption: 'The old index page',
+    icon: 'home',
+    link: '/OldIndex',
+  },
   {
     title: 'Docs',
     caption: 'quasar.dev',
@@ -94,6 +136,7 @@ const linksList = [
 ];
 
 import { defineComponent, ref } from 'vue';
+import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -103,10 +146,22 @@ export default defineComponent({
   },
 
   setup() {
+    const $store = useStore();
     const leftDrawerOpen = ref(false);
     const version = process.env.APP_VERSION;
+    const searchText = ref('');
+    const runSearch = () => {
+      // // eslint-disable-next-line no-console
+      // console.log('searchText', searchText.value);
+      $store.commit('setSearch', searchText);
+      // eslint-disable-next-line no-console, @typescript-eslint/no-unsafe-member-access
+      console.log('searchText state', $store?.state?.searchString);
+    };
 
     return {
+      // searchText: ref(''),
+      runSearch,
+      searchText,
       essentialLinks: linksList,
       leftDrawerOpen,
       version,
