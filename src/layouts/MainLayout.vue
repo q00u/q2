@@ -2,9 +2,10 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <img src="/icons/tile-38x38.png">
+        <q-img src="/icons/favicon-32x32.png" style="height: 32px; width: 32px" />
+        <q-toolbar-title shrink style="min-width: 64px">OES</q-toolbar-title>
 
-        <q-space />
+        <!-- <q-space /> -->
 
         <q-input
           v-model="searchText"
@@ -34,6 +35,10 @@
             </span>
           </template>
         </q-input>
+
+        <q-btn flat @click="settings">
+          <q-icon name="settings" />
+        </q-btn>
 
         <q-space />
 
@@ -68,10 +73,17 @@ export default defineComponent({
       console.debug('active results:', searchStore.activeResults);
     };
 
+    const showSettings = ref(false);
+    const settings = () => {
+      showSettings.value = !showSettings.value;
+    };
+
     return {
       runSearch,
       searchText,
       version,
+      showSettings,
+      settings,
     };
   },
 });
