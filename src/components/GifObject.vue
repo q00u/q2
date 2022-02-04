@@ -15,7 +15,9 @@
 import { computed, defineComponent } from 'vue';
 import { useGifStore } from 'src/store/gifobject';
 import giphyApi from 'giphy-api';
-import { copyToClipboard } from 'quasar';
+import { copyToClipboard, useQuasar } from 'quasar';
+
+// TODO Expanded gif actions? View full gif?
 
 export default defineComponent({
   name: 'GifObject',
@@ -35,13 +37,29 @@ export default defineComponent({
       return props.gifObject.images.fixed_height.url;
     });
 
+    const $q = useQuasar();
     const copy = () => {
       copyToClipboard(props.gifObject.url)
         .then(() => {
           // Toast success!
+          $q.notify({
+            group: false,
+            progress: true,
+            type: 'positive',
+            message: 'Copied!',
+            timeout: 1000,
+          });
         })
-        .catch(() => {
+        .catch((reason) => {
+          // eslint-disable-next-line no-console
+          console.error('Failed to copy to clipboard', reason);
           // Toast failure :-(
+          $q.notify({
+            group: false,
+            progress: true,
+            type: 'negative',
+            message: 'Something went wrong...',
+          });
         });
     };
 
@@ -50,13 +68,9 @@ export default defineComponent({
 
     const dimOthers = () => {
       gifStore.activate(props.gifObject.id);
-      // eslint-disable-next-line no-console
-      console.debug('Dim others', props.gifObject.id, JSON.stringify(gifStore.activeIds));
     };
 
     const undim = () => {
-      // eslint-disable-next-line no-console
-      console.debug('undim', props.gifObject.id);
       gifStore.deactivate(props.gifObject.id);
     };
 
