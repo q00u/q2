@@ -22,6 +22,7 @@ export const useSearchStore = defineStore('Search', {
       limit: 24,
     },
   }),
+  // TODO persist search state
 
   actions: {
     newTrending() {

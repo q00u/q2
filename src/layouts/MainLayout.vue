@@ -62,6 +62,8 @@ export default defineComponent({
   setup() {
     const version = process.env.APP_VERSION;
     const searchStore = useSearchStore();
+
+    // TODO Add search history view
     const searchText = ref(searchStore.activeSearch);
     const runSearch = () => {
       // eslint-disable-next-line no-console
@@ -73,8 +75,10 @@ export default defineComponent({
       console.debug('active results:', searchStore.activeResults);
     };
 
+    // TODO Add settings modal
     const showSettings = ref(false);
     const settings = () => {
+      // TODO Settings modal here
       showSettings.value = !showSettings.value;
     };
 
