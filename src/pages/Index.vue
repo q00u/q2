@@ -9,6 +9,8 @@
   </div>
 </template>
 
+// TODO pagination for more results
+
 <script lang="ts">
 import { useSearchStore } from 'src/store/search';
 import { computed, defineComponent, onMounted } from 'vue';
