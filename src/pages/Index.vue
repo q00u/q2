@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { useSearchStore } from 'src/store/search';
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, onMounted } from 'vue';
 
 export default defineComponent({
   name: 'PageIndex',
@@ -25,6 +25,10 @@ export default defineComponent({
       }
       return gif.images.fixed_height.url;
     }));
+
+    onMounted(() => {
+      searchStore.newTrending();
+    });
 
     return { gifSrc };
   },

@@ -2,6 +2,8 @@
 import { defineStore } from 'pinia';
 import giphyApi from 'giphy-api';
 
+const giphy = giphyApi(process.env.PUBLIC_KEY);
+
 export interface SearchState {
   activeSearch: string,
   activeResults: giphyApi.MultiResponse | null,
@@ -22,6 +24,21 @@ export const useSearchStore = defineStore('Search', {
   }),
 
   actions: {
+    newTrending() {
+      console.debug('action: trending');
+      this.activeSearch = 'Trending';
+      if (!this.searchHistory.Trending) {
+        console.debug('action: trending: new');
+        console.debug('action: trending: calling giphy with', this.searchOptions);
+        void giphy.trending(this.searchOptions).then((res) => {
+          console.debug('action: trending: results:', res);
+          this.activeResults = res;
+          this.searchHistory.Trending = res;
+        }).catch((err) => {
+          console.error('Broke while trying to get Trending from Giphy\n', err);
+        });
+      }
+    },
     newSearch(searchString: string) {
       console.debug('action: newSearch');
       if (!searchString) return;
@@ -32,8 +49,6 @@ export const useSearchStore = defineStore('Search', {
         console.debug('action: newSearch: New search!');
         // Update the query in search options
         this.searchOptions.q = this.activeSearch;
-        const giphy = giphyApi(process.env.PUBLIC_KEY);
-        // eslint-disable-next-line no-console
         console.debug('action: newSearch: calling giphy with', this.searchOptions);
         void giphy.search(this.searchOptions).then((res) => {
           console.debug('action: newSearch: results:', res);
