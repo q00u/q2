@@ -3,7 +3,10 @@
     <q-header elevated>
       <q-toolbar>
         <q-img src="/icons/favicon-32x32.png" style="height: 32px; width: 32px" />
-        <q-toolbar-title shrink style="min-width: 64px">OES</q-toolbar-title>
+        <q-toolbar-title shrink style="min-width: 51px">for</q-toolbar-title>
+        <q-avatar size="32px">
+          <img src="/icons/logo_padding_64x64.png">
+        </q-avatar>
 
         <!-- <q-space /> -->
 
