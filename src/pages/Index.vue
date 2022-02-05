@@ -1,49 +1,33 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
-  </q-page>
+  <div class="row">
+    <gif-object
+      v-for="gif in data"
+      :key="gif.id"
+      class="col-xs-6 col-sm-4 col-md-3 col-lg-2"
+      :gifObject="gif"
+    />
+  </div>
 </template>
 
+// TODO pagination for more results
+
 <script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/CompositionComponent.vue';
-import { defineComponent, ref } from 'vue';
+import { useSearchStore } from 'src/store/search';
+import { computed, defineComponent, onMounted } from 'vue';
+import GifObject from 'src/components/GifObject.vue';
 
 export default defineComponent({
   name: 'PageIndex',
-  components: { ExampleComponent },
   setup() {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1',
-      },
-      {
-        id: 2,
-        content: 'ct2',
-      },
-      {
-        id: 3,
-        content: 'ct3',
-      },
-      {
-        id: 4,
-        content: 'ct4',
-      },
-      {
-        id: 5,
-        content: 'ct5',
-      },
-    ]);
-    const meta = ref<Meta>({
-      totalCount: 1200,
+    // Create gifSrc array from active search results
+    const searchStore = useSearchStore();
+    const data = computed(() => searchStore.activeResults?.data);
+
+    onMounted(() => {
+      searchStore.newTrending();
     });
-    return { todos, meta };
+    return { data };
   },
+  components: { GifObject },
 });
 </script>

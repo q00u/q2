@@ -1,6 +1,6 @@
 {
   "name": "q2",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "A Giphy Frontend written in Quasar for OES",
   "productName": "OESGiphy",
   "author": "Phoenix Gabriel <github@korv.us>",
@@ -13,14 +13,15 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
-    "axios": "^0.21.1",
+    "@types/giphy-api": "^2.0.3",
     "core-js": "^3.6.5",
     "dotenv": "^15.0.0",
+    "giphy-api": "^2.0.2",
+    "pinia": "^2.0.11",
     "quasar": "^2.0.0",
     "vue": "^3.0.0",
     "vue-i18n": "^9.0.0",
-    "vue-router": "^4.0.0",
-    "vuex": "^4.0.1"
+    "vue-router": "^4.0.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",

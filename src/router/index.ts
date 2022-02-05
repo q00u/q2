@@ -5,7 +5,8 @@ import {
   createWebHashHistory,
   createWebHistory,
 } from 'vue-router';
-import { StateInterface } from '../store';
+// import { StateInterface } from '../store';
+import { SearchState } from 'src/store/search';
 import routes from './routes';
 
 /*
@@ -17,7 +18,8 @@ import routes from './routes';
  * with the Router instance.
  */
 
-export default route<StateInterface>((/* { store, ssrContext } */) => {
+// export default route<StateInterface>((/* { store, ssrContext } */) => {
+export default route<SearchState>((/* { store, ssrContext } */) => {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
