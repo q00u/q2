@@ -20,7 +20,7 @@
           dense
           standout
           style="width: 80%"
-          @keydown.enter="runSearch"
+          @keydown.enter="runSearch(searchText)"
         >
           <template v-slot:append>
             <q-icon v-if="searchText === ''" name="search" />
@@ -29,7 +29,7 @@
           <template v-slot:after>
             <q-icon
               v-if="searchText !== ''"
-              @click="runSearch"
+              @click="runSearch(searchText)"
               class="cursor-pointer"
               name="search"
             />
@@ -68,10 +68,13 @@ export default defineComponent({
 
     // TODO Add search history view
     const searchText = ref(searchStore.activeSearch);
-    const runSearch = () => {
+    const runSearch = (text:string, cached = true) => {
       // eslint-disable-next-line no-console
-      console.debug('searchText', searchText.value);
-      searchStore.newSearch(searchText.value);
+      console.debug('searchText', text, cached);
+      // Run searchStore action
+      searchStore.newSearch(text, cached);
+      // Update search box
+      searchText.value = searchStore.activeSearch;
       // eslint-disable-next-line no-console
       console.debug('active search:', searchStore.activeSearch);
       // eslint-disable-next-line no-console
