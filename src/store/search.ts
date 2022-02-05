@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia';
 import giphyApi from 'giphy-api';
 import { useQuasar } from 'quasar';
+import { useGifStore } from './gifobject';
 
 const giphy = giphyApi(process.env.PUBLIC_KEY);
 const $q = useQuasar();
@@ -50,31 +51,41 @@ export const useSearchStore = defineStore('Search', {
         }
       }
     },
-    newSearch(searchString: string) {
-      console.debug('action: newSearch');
+
+    newSearch(searchString: string, cached = true) {
+      console.debug('action: newSearch', searchString, cached);
       if (!searchString) return;
       // Make this the active search
       this.activeSearch = searchString;
-      // If we haven't done this search, run it now
-      if (!this.searchHistory[searchString]) {
+      // If we haven't done this search (or aren't caching), run it now
+      if (!cached || !this.searchHistory[searchString]) {
         console.debug('action: newSearch: New search!');
         // Update the query in search options
         this.searchOptions.q = this.activeSearch;
         console.debug('action: newSearch: calling giphy with', this.searchOptions);
         void giphy.search(this.searchOptions).then((res) => {
-          console.debug('action: newSearch: results:', res);
-          // Res contains gif data
+          console.debug('action: runSearch: results:', res);
           this.activeResults = res;
-          this.searchHistory[searchString] = res;
+          this.searchHistory[this.searchOptions.q] = res;
         }).catch((err) => {
           // Something went wrong!
           console.error('Broke while trying to search Giphy\n', err);
+          $q.notify({
+            group: false,
+            progress: true,
+            type: 'negative',
+            message: 'Something went wrong trying to search Giphy...',
+          });
         });
       } else {
         console.debug('action: newSearch: OLD search!');
         // WE'RE ALREADY HOLDING THE SPHERE
         this.activeResults = this.searchHistory[searchString];
       }
+      // Clear active gif list
+      const gifStore = useGifStore();
+      gifStore.clear();
+      console.debug('gifStore', gifStore.activeIds);
     },
   },
 });

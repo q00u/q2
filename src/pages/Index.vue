@@ -22,6 +22,7 @@ export default defineComponent({
     // Create gifSrc array from active search results
     const searchStore = useSearchStore();
     const data = computed(() => searchStore.activeResults?.data);
+
     onMounted(() => {
       searchStore.newTrending();
     });
