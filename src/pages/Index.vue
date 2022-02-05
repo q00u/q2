@@ -9,6 +9,8 @@
   </div>
 </template>
 
+// TODO pagination for more results
+
 <script lang="ts">
 import { useSearchStore } from 'src/store/search';
 import { computed, defineComponent, onMounted } from 'vue';
@@ -20,6 +22,7 @@ export default defineComponent({
     // Create gifSrc array from active search results
     const searchStore = useSearchStore();
     const data = computed(() => searchStore.activeResults?.data);
+
     onMounted(() => {
       searchStore.newTrending();
     });
