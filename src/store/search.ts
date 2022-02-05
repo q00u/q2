@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
 import { defineStore } from 'pinia';
 import giphyApi from 'giphy-api';
+import { useQuasar } from 'quasar';
 
 const giphy = giphyApi(process.env.PUBLIC_KEY);
+const $q = useQuasar();
 
 export interface SearchState {
   activeSearch: string,
@@ -25,19 +27,27 @@ export const useSearchStore = defineStore('Search', {
   // TODO persist search state
 
   actions: {
+    // Grab latest trending
     newTrending() {
-      console.debug('action: trending');
-      this.activeSearch = 'Trending';
-      if (!this.searchHistory.Trending) {
-        console.debug('action: trending: new');
-        console.debug('action: trending: calling giphy with', this.searchOptions);
-        void giphy.trending(this.searchOptions).then((res) => {
-          console.debug('action: trending: results:', res);
-          this.activeResults = res;
-          this.searchHistory.Trending = res;
-        }).catch((err) => {
-          console.error('Broke while trying to get Trending from Giphy\n', err);
-        });
+      if (this.activeSearch === '') {
+        console.debug('action: trending');
+        this.activeSearch = 'Trending';
+        if (!this.searchHistory.Trending) {
+          console.debug('action: trending: calling giphy with', this.searchOptions);
+          void giphy.trending(this.searchOptions).then((res) => {
+            console.debug('action: trending: results:', res);
+            this.activeResults = res;
+            this.searchHistory.Trending = res;
+          }).catch((err) => {
+            console.error('Broke while trying to get Trending from Giphy\n', err);
+            $q.notify({
+              group: false,
+              progress: true,
+              type: 'negative',
+              message: 'Something went wrong trying to get trending...',
+            });
+          });
+        }
       }
     },
     newSearch(searchString: string) {
