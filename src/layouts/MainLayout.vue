@@ -20,7 +20,8 @@
           dense
           standout
           style="width: 80%"
-          @focus="showHistory = true"
+          @focus="(input) =>
+            {showHistory = true; try {input.target.select();} catch(err) { console.error(err)} }"
           @keydown.enter="runSearch(searchText)"
         >
           <template v-slot:append>
