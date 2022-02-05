@@ -87,6 +87,7 @@
 </template>
 
 <script lang="ts">
+import { QInput } from 'quasar';
 import { useSearchStore } from 'src/store/search';
 import { computed, defineComponent, ref } from 'vue';
 
@@ -95,6 +96,7 @@ export default defineComponent({
 
   setup() {
     const version = process.env.APP_VERSION;
+    const searchBox = ref(null as unknown as QInput);
     const searchStore = useSearchStore();
 
     // search history view
@@ -115,6 +117,8 @@ export default defineComponent({
       console.debug('active search:', searchStore.activeSearch);
       // eslint-disable-next-line no-console
       console.debug('active results:', searchStore.activeResults);
+      // Defocus on search box
+      if (searchBox.value) searchBox.value.blur();
     };
 
     // TODO Add settings modal
