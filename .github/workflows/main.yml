@@ -34,7 +34,7 @@ jobs:
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v1.2
         with:
-          envkey_PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+          envkey_SECRET_KEY: ${{ secrets.PUBLIC_KEY }}
           directory: dist/spa
           file_name: .env
 
