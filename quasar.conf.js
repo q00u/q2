@@ -56,7 +56,8 @@ module.exports = configure((ctx) => ({
   // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
   build: {
     env: {
-      ...require('dotenv').config().parsed,
+      // ...require('dotenv').config().parsed,
+      PUBLIC_KEY: 'WMIdvGJ5aSuz5MObCdP06QxJRWtAy06z', // Don't do this, but .env is broken on gh-pages
       APP_VERSION: require('./package.json').version,
     },
     vueRouterMode: 'history', // available values: 'hash', 'history'
