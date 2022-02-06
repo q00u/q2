@@ -7,8 +7,24 @@
     fit="cover"
     @mouseover="dimOthers"
     @mouseleave="undim"
-    @click="copy"
-  />
+  >
+    <div v-if="activeGif" class="absolute-bottom-left">
+      <q-icon
+        @click="copy"
+        class="cursor-pointer"
+        name="content_copy"
+        size="lg"
+      />
+    </div>
+    <div v-if="activeGif" class="absolute-bottom-right">
+      <q-icon
+        @click="showGif"
+        class="cursor-pointer"
+        name="open_in_full"
+        size="lg"
+      />
+    </div>
+  </q-img>
 </template>
 
 <script lang="ts">
@@ -16,8 +32,6 @@ import { computed, defineComponent } from 'vue';
 import { useGifStore } from 'src/store/gifobject';
 import giphyApi from 'giphy-api';
 import { copyToClipboard, useQuasar } from 'quasar';
-
-// TODO Expanded gif actions? View full gif?
 
 export default defineComponent({
   name: 'GifObject',
@@ -36,6 +50,15 @@ export default defineComponent({
       }
       return props.gifObject.images.fixed_height.url;
     });
+    // const gifSrcFull = computed(() => props.gifObject.images.original.url);
+
+    // For full gif dialog
+    const showGif = () => {
+      gifStore.gifSrcFull = props.gifObject.images.original.url;
+      gifStore.showGif = true;
+      // eslint-disable-next-line no-console
+      console.debug('Showing full size original gif', gifStore.showGif, gifStore.gifSrcFull);
+    };
 
     const $q = useQuasar();
     const copy = () => {
@@ -63,6 +86,9 @@ export default defineComponent({
         });
     };
 
+    const activeGif = computed(() => gifStore.activeIds.length > 0
+      && gifStore.activeIds.includes(props.gifObject.id));
+
     const dimMyself = computed(() => gifStore.activeIds.length > 0
       && !gifStore.activeIds.includes(props.gifObject.id));
 
@@ -75,7 +101,7 @@ export default defineComponent({
     };
 
     return {
-      gifSrc, copy, dimMyself, dimOthers, undim,
+      gifSrc, showGif, copy, activeGif, dimMyself, dimOthers, undim,
     };
   },
 });
