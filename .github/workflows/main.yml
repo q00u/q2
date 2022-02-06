@@ -30,8 +30,13 @@ jobs:
         run: |
           yarn install
           yarn run build
-        env:
-          PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+        
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.2
+        with:
+          envkey_PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+          directory: dist/spa
+          file_name: .env
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.2.3
