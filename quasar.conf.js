@@ -62,7 +62,7 @@ module.exports = configure((ctx) => ({
     vueRouterMode: 'history', // available values: 'hash', 'history'
 
     // transpile: false,
-    // publicPath: '/',
+    publicPath: '/q2/',
 
     // Add dependencies for transpiling with Babel (Array of string/regex)
     // (from node_modules, which are by default not transpiled).
@@ -91,7 +91,7 @@ module.exports = configure((ctx) => ({
       type: 'http',
     },
     port: 8080,
-    open: true, // opens browser window automatically
+    open: false, // opens browser window automatically
   },
 
   // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
