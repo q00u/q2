@@ -11,7 +11,7 @@
         <!-- <q-space /> -->
 
         <q-input
-          v-model="searchText"
+          v-model="activeSearch"
           type="search"
           class="q-ml-md"
           label="Search"
@@ -22,21 +22,21 @@
           style="width: 80%"
           @focus="(input) =>
             {showHistory = true; try {input.target.select();} catch(err) { console.error(err)} }"
-          @keydown.enter="runSearch(searchText)"
+          @keydown.enter="runSearch(activeSearch)"
         >
           <template v-slot:append>
-            <q-icon v-if="searchText === ''" name="search" />
-            <q-icon v-else name="clear" class="cursor-pointer" @click="searchText = ''" />
+            <q-icon v-if="activeSearch === ''" name="search" />
+            <q-icon v-else name="clear" class="cursor-pointer" @click="activeSearch = ''" />
           </template>
           <template v-slot:after>
             <q-icon
-              v-if="searchText !== ''"
-              @click="runSearch(searchText)"
+              v-if="activeSearch !== ''"
+              @click="runSearch(activeSearch)"
               class="cursor-pointer"
               name="search"
             />
             <span class="text-caption">
-              {{ searchText.length }}/50
+              {{ activeSearch.length }}/50
             </span>
           </template>
         </q-input>
@@ -89,7 +89,9 @@
 <script lang="ts">
 import { QInput } from 'quasar';
 import { useSearchStore } from 'src/store/search';
+import { useTitleStore } from 'src/store/titlebar';
 import { computed, defineComponent, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'MainLayout',
@@ -99,22 +101,25 @@ export default defineComponent({
     const searchBox = ref(null as unknown as QInput);
     const searchStore = useSearchStore();
 
+    const titleStore = useTitleStore();
+    const { activeSearch } = storeToRefs(titleStore);
+
     // search history view
     const showHistory = ref(false);
     const historyList = computed(() => Object.keys(searchStore.searchHistory));
 
-    const searchText = ref(searchStore.activeSearch);
+    // const searchText = ref(searchStore.activeSearch);
     const runSearch = (text:string, cached = true) => {
       // eslint-disable-next-line no-console
-      console.debug('searchText', text, cached);
+      console.debug('activeSearch', text, cached);
       // Hide history box on search
       showHistory.value = false;
       // Run searchStore action
       searchStore.newSearch(text, cached);
-      // Update search box
-      searchText.value = searchStore.activeSearch;
+      // // Update search box
+      // searchText.value = searchStore.activeSearch;
       // eslint-disable-next-line no-console
-      console.debug('active search:', searchStore.activeSearch);
+      console.debug('active search:', activeSearch.value);
       // eslint-disable-next-line no-console
       console.debug('active results:', searchStore.activeResults);
       // Defocus on search box
@@ -130,7 +135,8 @@ export default defineComponent({
 
     return {
       version,
-      searchText,
+      activeSearch,
+      // searchText,
       runSearch,
       showHistory,
       historyList,
