@@ -7,14 +7,19 @@
       :gifObject="gif"
     />
   </div>
+  <q-dialog v-model="showGif" no-shake>
+    <q-img :src="gifSrcFull" />
+  </q-dialog>
 </template>
 
 // TODO pagination for more results
 
 <script lang="ts">
 import { useSearchStore } from 'src/store/search';
+import { useGifStore } from 'src/store/gifobject';
 import { computed, defineComponent, onMounted } from 'vue';
 import GifObject from 'src/components/GifObject.vue';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
   name: 'PageIndex',
@@ -22,11 +27,14 @@ export default defineComponent({
     // Create gifSrc array from active search results
     const searchStore = useSearchStore();
     const data = computed(() => searchStore.activeResults?.data);
+    // Get gif store for full-gif dialog
+    const gifStore = useGifStore();
+    const { showGif, gifSrcFull } = storeToRefs(gifStore);
 
     onMounted(() => {
       searchStore.newTrending();
     });
-    return { data };
+    return { data, showGif, gifSrcFull };
   },
   components: { GifObject },
 });
