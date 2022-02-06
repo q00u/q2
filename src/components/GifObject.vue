@@ -8,17 +8,15 @@
     @mouseover="dimOthers"
     @mouseleave="undim"
   >
-    <div v-if="activeGif" class="absolute-bottom-left">
+    <div v-if="activeGif" class="absolute-bottom-left" @click="copy">
       <q-icon
-        @click="copy"
         class="cursor-pointer"
         name="content_copy"
         size="lg"
       />
     </div>
-    <div v-if="activeGif" class="absolute-bottom-right">
+    <div v-if="activeGif" class="absolute-bottom-right" @click="showGif">
       <q-icon
-        @click="showGif"
         class="cursor-pointer"
         name="open_in_full"
         size="lg"
