@@ -30,7 +30,7 @@ export const useSearchStore = defineStore('Search', {
     // Grab latest trending
     newTrending() {
       const titleStore = useTitleStore();
-      const { activeSearch } = storeToRefs(titleStore);
+      const { activeSearch, showHistory, showSettings } = storeToRefs(titleStore);
       if (activeSearch.value === '') {
         console.debug('action: trending');
         activeSearch.value = 'Trending';
@@ -50,6 +50,9 @@ export const useSearchStore = defineStore('Search', {
             });
           });
         }
+        // Hide all dialogs
+        showHistory.value = false;
+        showSettings.value = false;
       }
     },
 
@@ -57,7 +60,7 @@ export const useSearchStore = defineStore('Search', {
       console.debug('action: newSearch', searchString, cached);
       if (!searchString) return;
       const titleStore = useTitleStore();
-      const { activeSearch } = storeToRefs(titleStore);
+      const { activeSearch, showHistory, showSettings } = storeToRefs(titleStore);
       // Make this the active search
       activeSearch.value = searchString;
       // If we haven't done this search (or aren't caching), run it now
@@ -89,6 +92,9 @@ export const useSearchStore = defineStore('Search', {
       const gifStore = useGifStore();
       gifStore.clear();
       console.debug('gifStore', gifStore.activeIds);
+      // Hide all dialogs
+      showHistory.value = false;
+      showSettings.value = false;
     },
   },
 });
