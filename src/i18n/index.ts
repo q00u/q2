@@ -1,8 +1,15 @@
 import enUS from './en-US';
+import es from './es';
+import ja from './ja';
+import fr from './fr';
+import de from './de';
 
-// TODO setup i18n properly
 // TODO Tooltips
 
 export default {
-  'en-US': enUS,
+  en: enUS,
+  es,
+  ja,
+  fr,
+  de,
 };
