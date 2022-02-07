@@ -38,7 +38,7 @@ export const useSearchStore = defineStore('Search', {
     newTrending() {
       const titleStore = useTitleStore();
       const { activeSearch, showHistory, showSettings } = storeToRefs(titleStore);
-      if (activeSearch.value === '') {
+      if (!this.activeResults) { // If we don't have anything to show yet, grab trending
         console.debug('action: trending');
         activeSearch.value = 'Trending';
         if (!this.searchHistory.Trending) {
