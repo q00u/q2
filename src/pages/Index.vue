@@ -29,6 +29,14 @@
           :label="rating.toUpperCase()"
           :val="rating"
         />
+        <div class="text-subtitle1">Language</div>
+        <q-radio
+          v-model="searchLang"
+          v-for="(language, index) in languages"
+          :key="index"
+          :label="language.autoglottonym"
+          :val="language.name"
+        />
         <!-- <q-list dense>
           <q-item
             v-for="(option, index) in options"
@@ -76,7 +84,6 @@
 </template>
 
 // TODO pagination for more results
-// TODO settings dialog options
 
 <script lang="ts">
 import { useSearchStore } from 'src/store/search';
@@ -94,7 +101,15 @@ export default defineComponent({
     const data = computed(() => searchStore.activeResults?.data);
     // Possible filter ratings
     const ratings = ['g', 'pg', 'pg-13', 'r'];
-    const { searchRating } = storeToRefs(searchStore);
+    // Possible languages
+    const languages = [
+      { name: 'en', autoglottonym: 'English' },
+      { name: 'es', autoglottonym: 'español' },
+      { name: 'ja', autoglottonym: '日本語' },
+      { name: 'fr', autoglottonym: 'français' },
+      { name: 'de', autoglottonym: 'Deutsch' },
+    ];
+    const { searchRating, searchLang } = storeToRefs(searchStore);
     // Create historyList array from searchHistory
     const historyList = computed(() => Object.keys(searchStore.searchHistory));
 
@@ -126,6 +141,8 @@ export default defineComponent({
       data,
       ratings,
       searchRating,
+      languages,
+      searchLang,
       showGif,
       gifSrcFull,
       showSettings,
