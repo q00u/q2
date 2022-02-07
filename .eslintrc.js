@@ -75,6 +75,7 @@ module.exports = {
     'no-void': 'off',
     'no-nested-ternary': 'off',
     'max-classes-per-file': 'off',
+    'no-multi-spaces': 'off',
 
     'import/first': 'off',
     'import/namespace': 'error',
