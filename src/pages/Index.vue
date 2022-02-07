@@ -15,13 +15,13 @@
   <q-dialog v-model="showSettings" no-shake>
     <q-card style="min-width:50%">
       <q-card-section class="row items-center no-wrap">
-        <div class="text-h5">Settings</div>
+        <div class="text-h5">{{ $t('settings') }}</div>
         <q-space />
         <q-btn v-close-popup icon="close" flat round />
       </q-card-section>
       <q-separator />
       <q-card-section class="scroll" style="max-height: 50vh">
-        <div class="text-subtitle1">Rating</div>
+        <div class="text-subtitle1">{{ $t('rating') }}</div>
         <q-radio
           v-model="searchRating"
           v-for="(rating, index) in ratings"
@@ -29,9 +29,9 @@
           :label="rating.toUpperCase()"
           :val="rating"
         />
-        <div class="text-subtitle1">Language</div>
+        <div class="text-subtitle1">{{ $t('language') }}</div>
         <q-radio
-          v-model="searchLang"
+          v-model="locale"
           v-for="(language, index) in languages"
           :key="index"
           :label="language.autoglottonym"
@@ -53,7 +53,7 @@
   <q-dialog v-model="showHistory" no-focus no-refocus no-shake seamless>
     <q-card style="min-width: 50%">
       <q-card-section class="row items-center no-wrap">
-        <div class="text-h5">Search History</div>
+        <div class="text-h5">{{ $t('searchHistory') }}</div>
         <q-space />
         <q-btn v-close-popup icon="close" flat round />
       </q-card-section>
@@ -89,9 +89,12 @@
 import { useSearchStore } from 'src/store/search';
 import { useGifStore } from 'src/store/gifobject';
 import { useTitleStore } from 'src/store/titlebar';
-import { computed, defineComponent, onMounted } from 'vue';
+import {
+  computed, defineComponent, onMounted, watch,
+} from 'vue';
 import GifObject from 'src/components/GifObject.vue';
 import { storeToRefs } from 'pinia';
+import { useI18n } from 'vue-i18n';
 
 export default defineComponent({
   name: 'PageIndex',
@@ -110,6 +113,10 @@ export default defineComponent({
       { name: 'de', autoglottonym: 'Deutsch' },
     ];
     const { searchRating, searchLang } = storeToRefs(searchStore);
+    const { locale } = useI18n({ useScope: 'global' });
+    watch(locale, (currentValue) => {
+      searchLang.value = currentValue;
+    });
     // Create historyList array from searchHistory
     const historyList = computed(() => Object.keys(searchStore.searchHistory));
 
@@ -142,6 +149,7 @@ export default defineComponent({
       ratings,
       searchRating,
       languages,
+      locale,
       searchLang,
       showGif,
       gifSrcFull,

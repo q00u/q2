@@ -5,8 +5,10 @@ import messages from 'src/i18n';
 
 export default boot(({ app }) => {
   const i18n = createI18n({
-    locale: 'en-US',
+    locale: 'en',
     messages,
+    // globalInjection: true,
+    // legacy: false,
   });
 
   // Set i18n instance on app

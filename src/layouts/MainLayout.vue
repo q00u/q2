@@ -12,7 +12,7 @@
           v-model="activeSearch"
           type="search"
           class="q-ml-md"
-          label="Search"
+          :label="$t('search')"
           maxlength="50"
           dark
           dense

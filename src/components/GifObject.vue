@@ -67,7 +67,7 @@ export default defineComponent({
             group: false,
             progress: true,
             type: 'positive',
-            message: 'Copied!',
+            message: 'Copied!', // TODO: Figure out why $t is not accessible inside defineComponent
             timeout: 1000,
           });
         })

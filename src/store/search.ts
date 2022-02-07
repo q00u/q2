@@ -9,13 +9,13 @@ const giphy = giphyApi({ https: true, apiKey: process.env.PUBLIC_KEY });
 const $q = useQuasar();
 
 type Rating = 'g' | 'pg' | 'pg-13' | 'r';
-type Language = 'en' | 'es' | 'ja' | 'fr' | 'de';
+// type Language = 'en' | 'es' | 'ja' | 'fr' | 'de';
 
 export interface SearchState {
   activeResults: giphyApi.MultiResponse | null,
   searchHistory: { [searchQuery: string]: giphyApi.MultiResponse | null },
   searchRating: Rating;
-  searchLang: Language,
+  searchLang: string, // Language, but it's not fully setup yet
   searchQuery: string;
 }
 

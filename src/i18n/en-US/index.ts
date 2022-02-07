@@ -1,7 +1,17 @@
-// This is just an example,
-// so you can safely delete all default props below
-
 export default {
+  search: 'Search',
+  trending: 'Trending',
+  searchHistory: 'Search History',
+  loadFromCache: 'Load from cache',
+  close: 'Close',
+  delete: 'Delete',
+  settings: 'Settings',
+  rating: 'Rating',
+  language: 'Language',
+  copy: 'Copy',
+  expand: 'Expand',
+  copied: 'Copied!',
+  somethingWentWrong: 'Something went wrong...',
   failed: 'Action failed',
   success: 'Action was successful',
 };
