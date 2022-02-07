@@ -32,6 +32,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import { useGifStore } from 'src/store/gifobject';
+import { useTitleStore } from 'src/store/titlebar';
 import giphyApi from 'giphy-api';
 import { copyToClipboard, useQuasar } from 'quasar';
 
@@ -52,7 +53,9 @@ export default defineComponent({
       }
       return props.gifObject.images.fixed_height.url;
     });
-    // const gifSrcFull = computed(() => props.gifObject.images.original.url);
+
+    const titleStore = useTitleStore();
+    const historyActive = computed(() => titleStore.showHistory);
 
     // For full gif dialog
     const showGif = () => {
@@ -88,11 +91,13 @@ export default defineComponent({
         });
     };
 
-    const activeGif = computed(() => gifStore.activeIds.length > 0
-      && gifStore.activeIds.includes(props.gifObject.id));
+    const activeGif = computed(() => !historyActive.value   // Search history is not displayed
+      && gifStore.activeIds.length > 0                      // AND _some_ gif is active
+      && gifStore.activeIds.includes(props.gifObject.id));  // AND it's this one!
 
-    const dimMyself = computed(() => gifStore.activeIds.length > 0
-      && !gifStore.activeIds.includes(props.gifObject.id));
+    const dimMyself = computed(() => historyActive.value    // Search history IS displayed
+      || (gifStore.activeIds.length > 0                     // OR some gif is active
+      && !gifStore.activeIds.includes(props.gifObject.id)));// AND it's NOT this one!
 
     const dimOthers = () => {
       gifStore.activate(props.gifObject.id);
