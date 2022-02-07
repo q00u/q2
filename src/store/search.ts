@@ -9,11 +9,13 @@ const giphy = giphyApi({ https: true, apiKey: process.env.PUBLIC_KEY });
 const $q = useQuasar();
 
 type Rating = 'g' | 'pg' | 'pg-13' | 'r';
+type Language = 'en' | 'es' | 'ja' | 'fr' | 'de';
 
 export interface SearchState {
   activeResults: giphyApi.MultiResponse | null,
   searchHistory: { [searchQuery: string]: giphyApi.MultiResponse | null },
   searchRating: Rating;
+  searchLang: Language,
   searchQuery: string;
 }
 
@@ -22,6 +24,7 @@ export const useSearchStore = defineStore('Search', {
     activeResults: null,
     searchHistory: {},
     searchRating: 'g',
+    searchLang: 'en',
     searchQuery: '',
   }),
   persist: {
@@ -46,6 +49,7 @@ export const useSearchStore = defineStore('Search', {
             rating: this.searchRating,
             q: '',
             limit: 24,
+            lang: this.searchLang,
           };
           console.debug('action: trending: calling giphy with', searchOptions);
           void giphy.trending(searchOptions).then((res) => {
@@ -83,6 +87,7 @@ export const useSearchStore = defineStore('Search', {
           rating: this.searchRating,
           q: activeSearch.value,
           limit: 24,
+          lang: this.searchLang,
         };
         // this.searchOptions.q = activeSearch.value;
         console.debug('action: newSearch: calling giphy with', searchOptions);
