@@ -19,7 +19,7 @@
           standout
           style="width: 80%"
           @focus="(input) =>
-            {showHistory = true; try {input.target.select();} catch(err) { console.error(err)} }"
+            {showHistory = true; try {input?.target?.select();} catch(err) { } }"
           @keydown.enter="runSearch(activeSearch)"
         >
           <template v-slot:append>
