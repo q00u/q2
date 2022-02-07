@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" @mouseleave="undim">
     <gif-object
       v-for="gif in data"
       :key="gif.id"
@@ -114,6 +114,11 @@ export default defineComponent({
       searchStore.removeSearch(searchString);
     };
 
+    // Undim all when mouse leaves screen (failsafe)
+    const undim = () => {
+      gifStore.clear();
+    };
+
     onMounted(() => {
       searchStore.newTrending();
     });
@@ -128,6 +133,7 @@ export default defineComponent({
       historyList,
       search,
       remove,
+      undim,
     };
   },
   components: { GifObject },
