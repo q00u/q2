@@ -24,7 +24,9 @@ export const useSearchStore = defineStore('Search', {
       limit: 24,
     },
   }),
-  // TODO persist search state
+  persist: {
+    enabled: true,
+  },
 
   actions: {
     // Remove search from history
