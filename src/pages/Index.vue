@@ -21,6 +21,14 @@
       </q-card-section>
       <q-separator />
       <q-card-section class="scroll" style="max-height: 50vh">
+        <div class="text-subtitle1">Rating</div>
+        <q-radio
+          v-model="searchRating"
+          v-for="(rating, index) in ratings"
+          :key="index"
+          :label="rating.toUpperCase()"
+          :val="rating"
+        />
         <!-- <q-list dense>
           <q-item
             v-for="(option, index) in options"
@@ -30,7 +38,6 @@
             @click="option.action"
           />
         </q-list> -->
-        <div> TODO </div>
       </q-card-section>
     </q-card>
   </q-dialog>
@@ -85,11 +92,16 @@ export default defineComponent({
     // Create gifSrc array from active search results
     const searchStore = useSearchStore();
     const data = computed(() => searchStore.activeResults?.data);
+    // Possible filter ratings
+    const ratings = ['g', 'pg', 'pg-13', 'r'];
+    const { searchRating } = storeToRefs(searchStore);
     // Create historyList array from searchHistory
     const historyList = computed(() => Object.keys(searchStore.searchHistory));
+
     // Get gif store for full-gif dialog
     const gifStore = useGifStore();
     const { showGif, gifSrcFull } = storeToRefs(gifStore);
+
     // Get title store for dialog state toggles
     const titleStore = useTitleStore();
     const { showSettings, showHistory } = storeToRefs(titleStore);
@@ -107,6 +119,8 @@ export default defineComponent({
     });
     return {
       data,
+      ratings,
+      searchRating,
       showGif,
       gifSrcFull,
       showSettings,
