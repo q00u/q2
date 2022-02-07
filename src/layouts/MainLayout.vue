@@ -24,7 +24,9 @@
         >
           <template v-slot:append>
             <q-icon v-if="activeSearch === ''" name="search" />
-            <q-icon v-else name="clear" class="cursor-pointer" @click="activeSearch = ''" />
+            <q-icon v-else name="clear" class="cursor-pointer" @click="activeSearch = ''">
+              <q-tooltip>{{ $t('delete') }}</q-tooltip>
+            </q-icon>
           </template>
           <template v-slot:after>
             <q-icon
@@ -32,7 +34,9 @@
               @click="runSearch(activeSearch)"
               class="cursor-pointer"
               name="search"
-            />
+            >
+              <q-tooltip>{{ $t('search') }}</q-tooltip>
+            </q-icon>
             <span class="text-caption">
               {{ activeSearch.length }}/50
             </span>
@@ -40,7 +44,9 @@
         </q-input>
 
         <q-btn flat @click="showSettings = true">
-          <q-icon name="settings" />
+          <q-icon name="settings">
+            <q-tooltip>{{ $t('settings') }}</q-tooltip>
+          </q-icon>
         </q-btn>
 
         <q-space />

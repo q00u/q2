@@ -17,7 +17,9 @@
       <q-card-section class="row items-center no-wrap">
         <div class="text-h5">{{ $t('settings') }}</div>
         <q-space />
-        <q-btn v-close-popup icon="close" flat round />
+        <q-btn v-close-popup icon="close" flat round>
+          <q-tooltip>{{ $t('close') }}</q-tooltip>
+        </q-btn>
       </q-card-section>
       <q-separator />
       <q-card-section class="scroll" style="max-height: 50vh">
@@ -55,7 +57,9 @@
       <q-card-section class="row items-center no-wrap">
         <div class="text-h5">{{ $t('searchHistory') }}</div>
         <q-space />
-        <q-btn v-close-popup icon="close" flat round />
+        <q-btn v-close-popup icon="close" flat round>
+          <q-tooltip>{{ $t('close') }}</q-tooltip>
+        </q-btn>
       </q-card-section>
       <q-separator />
       <q-card-section class="scroll" style="max-height: 50vh">
@@ -67,13 +71,20 @@
           >
             <div class="row items-center no-wrap justify-between">
               <div class="col-1" style="min-width: 42px">
-                <q-btn @click="search(item, false)" icon="autorenew" flat round />
+                <q-btn @click="search(item, false)" icon="autorenew" flat round>
+                  <q-tooltip>{{ $t('refresh') }}</q-tooltip>
+                </q-btn>
               </div>
               <div class="col">
-                <q-btn @click="search(item)" flat no-caps>{{ item }}</q-btn>
+                <q-btn @click="search(item)" flat no-caps>
+                  {{ item }}
+                  <q-tooltip>{{ $t('loadFromCache') }}</q-tooltip>
+                </q-btn>
               </div>
               <div class="col-1" style="min-width: 42px">
-                <q-btn @click="remove(item)" icon="backspace" flat round />
+                <q-btn @click="remove(item)" icon="backspace" flat round>
+                  <q-tooltip>{{ $t('delete') }}</q-tooltip>
+                </q-btn>
               </div>
             </div>
           </div>

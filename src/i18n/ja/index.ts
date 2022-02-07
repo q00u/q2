@@ -2,6 +2,7 @@ export default {
   search: '検索',
   trending: 'トレンド',
   searchHistory: '検索履歴',
+  refresh: '更新',
   loadFromCache: 'キャッシュからロード',
   close: '閉じる',
   delete: '消去',

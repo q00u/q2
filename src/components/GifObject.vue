@@ -13,14 +13,18 @@
         class="cursor-pointer"
         name="content_copy"
         size="lg"
-      />
+      >
+        <q-tooltip>{{ $t('copy') }}</q-tooltip>
+      </q-icon>
     </div>
     <div v-if="activeGif" class="absolute-bottom-right" @click="showGif">
       <q-icon
         class="cursor-pointer"
         name="open_in_full"
         size="lg"
-      />
+      >
+        <q-tooltip>{{ $t('expand') }}</q-tooltip>
+      </q-icon>
     </div>
   </q-img>
 </template>

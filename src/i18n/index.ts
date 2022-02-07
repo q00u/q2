@@ -4,8 +4,6 @@ import ja from './ja';
 import fr from './fr';
 import de from './de';
 
-// TODO Tooltips
-
 export default {
   en: enUS,
   es,

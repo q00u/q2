@@ -2,6 +2,7 @@ export default {
   search: 'Buscar',
   trending: 'Tendencias',
   searchHistory: 'Historial de búsqueda',
+  refresh: 'Actualizar',
   loadFromCache: 'Cargar desde caché',
   close: 'cerca',
   delete: 'Eliminar',
