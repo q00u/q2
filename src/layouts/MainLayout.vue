@@ -73,7 +73,6 @@ export default defineComponent({
     const titleStore = useTitleStore();
     const { activeSearch, showSettings, showHistory } = storeToRefs(titleStore);
 
-    // const searchText = ref(searchStore.activeSearch);
     const runSearch = (text:string, cached = true) => {
       // eslint-disable-next-line no-console
       console.debug('activeSearch', text, cached);

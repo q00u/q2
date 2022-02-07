@@ -27,6 +27,11 @@ export const useSearchStore = defineStore('Search', {
   // TODO persist search state
 
   actions: {
+    // Remove search from history
+    removeSearch(searchString: string) {
+      delete this.searchHistory[searchString];
+    },
+
     // Grab latest trending
     newTrending() {
       const titleStore = useTitleStore();

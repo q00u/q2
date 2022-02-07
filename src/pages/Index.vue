@@ -51,11 +51,14 @@
             class="col"
           >
             <div class="row justify-between">
+              <div class="col-1">
+                <q-btn flat round icon="autorenew" @click="search(item, false)" />
+              </div>
               <div class="col">
-                <q-btn flat @click="runSearch(item)">{{ item }}</q-btn>
+                <q-btn flat @click="search(item)">{{ item }}</q-btn>
               </div>
               <div class="col-1">
-                <q-btn flat round icon="autorenew" @click="runSearch(item, false)" />
+                <q-btn flat round icon="clear" @click="remove(item)" />
               </div>
             </div>
           </div>
@@ -91,11 +94,26 @@ export default defineComponent({
     const titleStore = useTitleStore();
     const { showSettings, showHistory } = storeToRefs(titleStore);
 
+    // Wrappers for search actions
+    const search = (searchString: string, cached = true) => {
+      searchStore.newSearch(searchString, cached);
+    };
+    const remove = (searchString: string) => {
+      searchStore.removeSearch(searchString);
+    };
+
     onMounted(() => {
       searchStore.newTrending();
     });
     return {
-      data, showGif, gifSrcFull, showSettings, showHistory, historyList,
+      data,
+      showGif,
+      gifSrcFull,
+      showSettings,
+      showHistory,
+      historyList,
+      search,
+      remove,
     };
   },
   components: { GifObject },
