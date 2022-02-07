@@ -5,38 +5,54 @@ import { useQuasar } from 'quasar';
 import { useGifStore } from './gifobject';
 import { useTitleStore } from './titlebar';
 
-const giphy = giphyApi(process.env.PUBLIC_KEY);
+const giphy = giphyApi({ https: true, apiKey: process.env.PUBLIC_KEY });
 const $q = useQuasar();
+
+type Rating = 'g' | 'pg' | 'pg-13' | 'r';
+// type Language = 'en' | 'es' | 'ja' | 'fr' | 'de';
 
 export interface SearchState {
   activeResults: giphyApi.MultiResponse | null,
   searchHistory: { [searchQuery: string]: giphyApi.MultiResponse | null },
-  searchOptions: giphyApi.SearchOptions,
+  searchRating: Rating;
+  searchLang: string, // Language, but it's not fully setup yet
+  searchQuery: string;
 }
 
 export const useSearchStore = defineStore('Search', {
   state: ():SearchState => ({
     activeResults: null,
     searchHistory: {},
-    searchOptions: {
-      rating: 'g',
-      q: '',
-      limit: 24,
-    },
+    searchRating: 'g',
+    searchLang: 'en',
+    searchQuery: '',
   }),
-  // TODO persist search state
+  persist: {
+    enabled: true,
+  },
 
   actions: {
+    // Remove search from history
+    removeSearch(searchString: string) {
+      delete this.searchHistory[searchString];
+    },
+
     // Grab latest trending
     newTrending() {
       const titleStore = useTitleStore();
       const { activeSearch, showHistory, showSettings } = storeToRefs(titleStore);
-      if (activeSearch.value === '') {
+      if (!this.activeResults) { // If we don't have anything to show yet, grab trending
         console.debug('action: trending');
         activeSearch.value = 'Trending';
         if (!this.searchHistory.Trending) {
-          console.debug('action: trending: calling giphy with', this.searchOptions);
-          void giphy.trending(this.searchOptions).then((res) => {
+          const searchOptions = {
+            rating: this.searchRating,
+            q: '',
+            limit: 24,
+            lang: this.searchLang,
+          };
+          console.debug('action: trending: calling giphy with', searchOptions);
+          void giphy.trending(searchOptions).then((res) => {
             console.debug('action: trending: results:', res);
             this.activeResults = res;
             this.searchHistory.Trending = res;
@@ -67,12 +83,18 @@ export const useSearchStore = defineStore('Search', {
       if (!cached || !this.searchHistory[searchString]) {
         console.debug('action: newSearch: New search!');
         // Update the query in search options
-        this.searchOptions.q = activeSearch.value;
-        console.debug('action: newSearch: calling giphy with', this.searchOptions);
-        void giphy.search(this.searchOptions).then((res) => {
+        const searchOptions = {
+          rating: this.searchRating,
+          q: activeSearch.value,
+          limit: 24,
+          lang: this.searchLang,
+        };
+        // this.searchOptions.q = activeSearch.value;
+        console.debug('action: newSearch: calling giphy with', searchOptions);
+        void giphy.search(searchOptions).then((res) => {
           console.debug('action: runSearch: results:', res);
           this.activeResults = res;
-          this.searchHistory[this.searchOptions.q] = res;
+          this.searchHistory[searchOptions.q] = res;
         }).catch((err) => {
           // Something went wrong!
           console.error('Broke while trying to search Giphy\n', err);

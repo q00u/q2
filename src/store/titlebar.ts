@@ -13,4 +13,7 @@ export const useTitleStore = defineStore('Title', {
     showSettings: false,
     showHistory: false,
   }),
+  persist: {
+    enabled: true,
+  },
 });

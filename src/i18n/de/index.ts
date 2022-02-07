@@ -1,0 +1,18 @@
+export default {
+  search: 'Suche',
+  trending: 'Trending',
+  searchHistory: 'Suchverlauf',
+  refresh: 'Aktualisierung',
+  loadFromCache: 'Aus Cache laden',
+  close: 'Schließen',
+  delete: 'Löschen',
+  settings: 'Einstellungen',
+  rating: 'Bewertung',
+  language: 'Sprache',
+  copy: 'Kopieren',
+  expand: 'erweitern',
+  copied: 'Kopiert!',
+  somethingWentWrong: 'Etwas ist schief gelaufen...',
+  failed: 'Aktion fehlgeschlagen',
+  success: 'Aktion war erfolgreich',
+};
