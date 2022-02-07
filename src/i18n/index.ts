@@ -1,7 +1,13 @@
 import enUS from './en-US';
-
-// TODO setup i18n properly
+import es from './es';
+import ja from './ja';
+import fr from './fr';
+import de from './de';
 
 export default {
-  'en-US': enUS,
+  en: enUS,
+  es,
+  ja,
+  fr,
+  de,
 };

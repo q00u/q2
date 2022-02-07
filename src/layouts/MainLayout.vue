@@ -2,29 +2,31 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-img src="/icons/favicon-32x32.png" style="height: 32px; width: 32px" />
+        <q-img src="~assets/icons/favicon-32x32.png" style="height: 32px; width: 32px" />
         <q-toolbar-title shrink style="min-width: 51px">for</q-toolbar-title>
         <q-avatar size="32px">
-          <img src="/icons/logo_padding_64x64.png">
+          <img src="~assets/icons/logo_padding_64x64.png">
         </q-avatar>
 
         <q-input
           v-model="activeSearch"
           type="search"
           class="q-ml-md"
-          label="Search"
+          :label="$t('search')"
           maxlength="50"
           dark
           dense
           standout
           style="width: 80%"
           @focus="(input) =>
-            {showHistory = true; try {input.target.select();} catch(err) { console.error(err)} }"
+            {showHistory = true; try {input?.target?.select();} catch(err) { } }"
           @keydown.enter="runSearch(activeSearch)"
         >
           <template v-slot:append>
             <q-icon v-if="activeSearch === ''" name="search" />
-            <q-icon v-else name="clear" class="cursor-pointer" @click="activeSearch = ''" />
+            <q-icon v-else name="clear" class="cursor-pointer" @click="activeSearch = ''">
+              <q-tooltip>{{ $t('delete') }}</q-tooltip>
+            </q-icon>
           </template>
           <template v-slot:after>
             <q-icon
@@ -32,7 +34,9 @@
               @click="runSearch(activeSearch)"
               class="cursor-pointer"
               name="search"
-            />
+            >
+              <q-tooltip>{{ $t('search') }}</q-tooltip>
+            </q-icon>
             <span class="text-caption">
               {{ activeSearch.length }}/50
             </span>
@@ -40,7 +44,9 @@
         </q-input>
 
         <q-btn flat @click="showSettings = true">
-          <q-icon name="settings" />
+          <q-icon name="settings">
+            <q-tooltip>{{ $t('settings') }}</q-tooltip>
+          </q-icon>
         </q-btn>
 
         <q-space />
@@ -73,7 +79,6 @@ export default defineComponent({
     const titleStore = useTitleStore();
     const { activeSearch, showSettings, showHistory } = storeToRefs(titleStore);
 
-    // const searchText = ref(searchStore.activeSearch);
     const runSearch = (text:string, cached = true) => {
       // eslint-disable-next-line no-console
       console.debug('activeSearch', text, cached);
