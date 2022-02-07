@@ -1,6 +1,6 @@
 {
   "name": "q2",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A Giphy Frontend written in Quasar for OES",
   "productName": "OESGiphy",
   "author": "Phoenix Gabriel <github@korv.us>",
