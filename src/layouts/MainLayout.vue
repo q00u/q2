@@ -2,10 +2,10 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-img src="icons/favicon-32x32.png" style="height: 32px; width: 32px" />
+        <q-img src="~assets/icons/favicon-32x32.png" style="height: 32px; width: 32px" />
         <q-toolbar-title shrink style="min-width: 51px">for</q-toolbar-title>
         <q-avatar size="32px">
-          <img src="icons/logo_padding_64x64.png">
+          <img src="~assets/icons/logo_padding_64x64.png">
         </q-avatar>
 
         <q-input
