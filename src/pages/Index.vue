@@ -3,8 +3,8 @@
     <gif-object
       v-for="gif in data"
       :key="gif.id"
-      class="col-xs-6 col-sm-4 col-md-3 col-lg-2"
       :gifObject="gif"
+      class="col-xs-6 col-sm-4 col-md-3 col-lg-2"
     />
   </div>
 
@@ -17,10 +17,10 @@
       <q-card-section class="row items-center no-wrap">
         <div class="text-h5">Settings</div>
         <q-space />
-        <q-btn flat round icon="close" v-close-popup />
+        <q-btn v-close-popup icon="close" flat round />
       </q-card-section>
       <q-separator />
-      <q-card-section style="max-height: 50vh" class="scroll">
+      <q-card-section class="scroll" style="max-height: 50vh">
         <!-- <q-list dense>
           <q-item
             v-for="(option, index) in options"
@@ -40,25 +40,25 @@
       <q-card-section class="row items-center no-wrap">
         <div class="text-h5">Search History</div>
         <q-space />
-        <q-btn flat round icon="close" v-close-popup />
+        <q-btn v-close-popup icon="close" flat round />
       </q-card-section>
       <q-separator />
-      <q-card-section style="max-height: 50vh" class="scroll">
+      <q-card-section class="scroll" style="max-height: 50vh">
         <div class="column">
           <div
             v-for="(item, index) in historyList"
             :key="index"
             class="col"
           >
-            <div class="row justify-between">
-              <div class="col-1">
-                <q-btn flat round icon="autorenew" @click="search(item, false)" />
+            <div class="row items-center no-wrap justify-between">
+              <div class="col-1" style="min-width: 42px">
+                <q-btn @click="search(item, false)" icon="autorenew" flat round />
               </div>
               <div class="col">
-                <q-btn flat @click="search(item)">{{ item }}</q-btn>
+                <q-btn @click="search(item)" flat no-caps>{{ item }}</q-btn>
               </div>
-              <div class="col-1">
-                <q-btn flat round icon="clear" @click="remove(item)" />
+              <div class="col-1" style="min-width: 42px">
+                <q-btn @click="remove(item)" icon="backspace" flat round />
               </div>
             </div>
           </div>
