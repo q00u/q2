@@ -5,7 +5,7 @@ import { useQuasar } from 'quasar';
 import { useGifStore } from './gifobject';
 import { useTitleStore } from './titlebar';
 
-const giphy = giphyApi(process.env.PUBLIC_KEY);
+const giphy = giphyApi({ https: true, apiKey: process.env.PUBLIC_KEY });
 const $q = useQuasar();
 
 export interface SearchState {
