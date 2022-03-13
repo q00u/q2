@@ -11,4 +11,4 @@ updates:
       interval: "daily"
     target-branch: "depcheck"
     labels:
-      - "npm dependencies"
+      - "dependencies"
