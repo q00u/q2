@@ -5177,10 +5177,10 @@ qs@6.9.6:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.6.tgz#26ed3c8243a431b2924aca84cc90471f35d5a0ee"
   integrity sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==
 
-quasar@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.7.1.tgz#a599978ce2f1f6327e6686a01923ccacd9a75ddd"
-  integrity sha512-V2FcD04nHE07p4p0YEeC3ZIA9kodyZ5wdZ+eXRZhUZ3cFugAneJ1D2WCyKoqwM4OReFCk/1jlqQxCCUaTU4X3g==
+quasar@^2.7.3:
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.7.3.tgz#ff57ac5f3c9a8fdc345f59362d7b0f45c80bc68d"
+  integrity sha512-4YQQP1FbfshXwav9QcOHpvSg4eME4iKzd85m4562EqcfuhRtycC/2WQg+cRxlEr43gEHM0uXaJmybNUWZpoYkw==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
