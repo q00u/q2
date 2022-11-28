@@ -17,7 +17,7 @@
     "core-js": "^3.26.1",
     "dotenv": "^16.0.3",
     "giphy-api": "^2.0.2",
-    "pinia": "^2.0.26",
+    "pinia": "^2.0.27",
     "pinia-plugin-persist": "^1.0.0",
     "quasar": "^2.10.2",
     "vue": "^3.2.45",
