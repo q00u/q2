@@ -33,7 +33,7 @@
     "eslint": "^8.46.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.28.0",
-    "eslint-plugin-vue": "^9.16.1"
+    "eslint-plugin-vue": "^9.17.0"
   },
   "browserslist": [
     "last 10 Chrome versions",
