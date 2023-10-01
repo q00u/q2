@@ -1298,10 +1298,10 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/giphy-api@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@types/giphy-api/-/giphy-api-2.0.3.tgz#cdb689040bb61fbb8d3de094238cec16ca8c4e86"
-  integrity sha512-nqwYMwWwa6uwnj4RbiexCj9yPTQS8etUD5LyA4T7GwqyX5WDowJ+8c5J5N4QHJOvHXF1wzt/fQ0UIAkDJtg+ig==
+"@types/giphy-api@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@types/giphy-api/-/giphy-api-2.0.4.tgz#e507516372d1c3680f96d37bc36f5bb925deb134"
+  integrity sha512-+WpSoz/ssNxmltSg8UOK2orBuVF8Y3vuygIgiSh6n9QYD2rjYZ2+YF9RvjO+iQu4SqVPeLLjr3/5XtDj+XcxLQ==
 
 "@types/html-minifier-terser@^6.0.0":
   version "6.1.0"
