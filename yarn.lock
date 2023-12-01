@@ -1281,10 +1281,10 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/giphy-api@^2.0.5":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@types/giphy-api/-/giphy-api-2.0.5.tgz#0f2ab63c6f605f8ca8c92e0fbf136e4bb9ca8f68"
-  integrity sha512-RltOn9HbnkrTkd+UKEE6ClldI4E3JnFMa0tQU7g9fOfpP29ObUck/Y05l5tDciJHXcEk6BQlhV1wTdvWYWuyDA==
+"@types/giphy-api@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@types/giphy-api/-/giphy-api-2.0.6.tgz#17f81c51daebf64f450c78339372769862fdc003"
+  integrity sha512-uobkq9e9AqJvUcE8ldfc+Fy56lNu/WLidlqLkFejrK3smwCdMWXLbZDQP5DzUe8nvNJfVe2Hjb8CP32+T0TupQ==
 
 "@types/html-minifier-terser@^6.0.0":
   version "6.1.0"
