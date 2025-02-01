@@ -14,7 +14,7 @@
   "dependencies": {
     "@quasar/extras": "^1.16.15",
     "@types/giphy-api": "^2.0.6",
-    "core-js": "^3.39.0",
+    "core-js": "^3.40.0",
     "dotenv": "^16.4.7",
     "giphy-api": "^2.0.2",
     "pinia": "^2.3.1",
